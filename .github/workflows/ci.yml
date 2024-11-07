@@ -28,7 +28,7 @@ jobs:
       - name: Build
         run: |
           if [ $GITHUB_RUN_ATTEMPT -eq 1 ]; then
-            echo ::warning This is intentionally flakey. Please rerun
+            echo ::warning ::This is intentionally flakey. Please rerun
             exit 5
           fi
-          echo ::notice This is stable
+          echo ::notice ::This is stable
