@@ -17,6 +17,7 @@ jobs:
       - name: Bump Version
         uses: GarnerCorp/build-actions/bump-version@main
         id: version
+        continue-on-error: true
         with:
           version-type: "node"
           version-file-path: "package.json"
@@ -24,7 +25,11 @@ jobs:
           git-email: "andriy@example.com"
           major: changelogs/major
           minor: changelogs/minor
-
+      - name: "Something"
+        if: steps.version.outcome == 'failure' && github.run_attempt == '1'
+        run: |
+          echo ::error::This is bad and should not happen
+          exit 3
       - name: Build
         run: |
           if [ $GITHUB_RUN_ATTEMPT -eq 1 ]; then
